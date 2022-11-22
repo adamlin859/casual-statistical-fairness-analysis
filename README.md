@@ -1,8 +1,8 @@
 # COMS 6998: Fair and Robust Algorithms project
 
 This work aims to explore established causal-based frameworks and evaluate
-them under causality-based fairness notions, comparing these measures to sta-
-tistical fairness metrics. A major limitation of causal literature is that it assumes
+them under causality-based fairness notions, comparing these measures to statistical fairness metrics. 
+A major limitation of causal literature is that it assumes
 that a causal model to work from, which is rarely the case. For this reason, part
 of our work will be the discovery of such a causal model through which we will
 evaluate the fairness notions [1]. Notably, we wish to evaluate these metrics
