@@ -11,11 +11,15 @@ def get_ACSIncome():
     data = data_source.get_data(states=states, download=True)
     features, labels, _ = ACSIncome.df_to_numpy(data)
 
-    # save as pandas df
+    # save as pandas dataframe
     data_cat = np.c_[features, labels]
-    feats = ['AGEP', 'COW', 'SCHL', 'MAR', 'OCCP', 'POBP', 'RELP', 'WKHP', 'SEX', 'RAC1P', 'TARGET']
+    feats = ['AGEP', 'COW', 'SCHL', 'MAR', 'OCCP', 'POBP', 'RELP', 'WKHP', 'SEX', 'RAC1P', 'INCOME']
     df = pd.DataFrame(data_cat, columns=feats)
-    df.to_csv('ACSIncome_2018.csv', index=False)
+
+    # keep only certain features for analysis
+    keep_feats = ["AGEP", "COW", "SCHL", "MAR", "WKHP", "SEX", "INCOME"]
+    df = df[keep_feats]
+    df.to_csv('ACSIncome_2018_prepared.csv', columns=keep_feats, index=False)
     print("Done!")
 
 
@@ -25,7 +29,7 @@ def prepare_uci_adult():
     df.columns = ["age", "workclass", "fnlwgt", "education", "education-num", "marital", "occupation", \
                 "relationship", "race", "sex", "capital-gain", "capital-loss", "hours", "native-country", "income"]
 
-    # keep only certain features
+    # keep only certain features for analysis
     df = df[["age", "workclass", "education", "marital", "hours", "sex", "income"]]
 
     # recode sex and target
@@ -41,8 +45,9 @@ def prepare_uci_adult():
         df[feat] = encoded_col
 
     # rename columns to be consistent with ACSIncome
-    df.columns = ["AGEP", "COW", "SCHL", "MAR", "WKHP", "SEX", "INCOME"]
-    df.to_csv("uci_adult.csv", columns=["AGEP", "COW", "SCHL", "MAR", "WKHP", "SEX", "INCOME"], index=False)
+    feats = ["AGEP", "COW", "SCHL", "MAR", "WKHP", "SEX", "INCOME"]
+    df.columns = feats
+    df.to_csv("uci_adult_prepared.csv", columns=feats, index=False)
     print("Done!")
 
 
